@@ -33,7 +33,6 @@ internal class NettyTcpClientImpl(
         nettyClientHandler.msgCallback = { msg ->
             msgListenerCache.forEach { it.onMsgRecive(msg, host, port) }
         }
-        core.connect()
     }
 
     /**
@@ -102,8 +101,10 @@ internal class NettyTcpClientImpl(
      * 连接状态变化
      */
     override fun onStateChange(state: ConnectState) {
-        stateListenerCache.forEach {
-            it.onStateChange(state)
+        main {
+            stateListenerCache.forEach {
+                it.onStateChange(state)
+            }
         }
     }
 }

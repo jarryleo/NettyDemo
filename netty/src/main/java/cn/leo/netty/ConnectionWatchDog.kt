@@ -3,6 +3,7 @@ package cn.leo.netty
 import android.util.Log
 import io.netty.bootstrap.Bootstrap
 import io.netty.channel.Channel
+import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
 import kotlinx.coroutines.delay
@@ -12,6 +13,7 @@ import kotlinx.coroutines.delay
  * @date : 2020-03-03
  * 自动重连
  */
+@ChannelHandler.Sharable
 internal class ConnectionWatchDog(
     private val host: String,
     private val port: Int,

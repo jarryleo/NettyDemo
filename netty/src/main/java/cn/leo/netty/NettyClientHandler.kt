@@ -1,5 +1,6 @@
 package cn.leo.netty
 
+import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.SimpleChannelInboundHandler
 
@@ -8,6 +9,7 @@ import io.netty.channel.SimpleChannelInboundHandler
  * @date : 2020-02-28
  * 连接处理句柄
  */
+@ChannelHandler.Sharable
 internal class NettyClientHandler : SimpleChannelInboundHandler<String>() {
 
     //频道上下文
@@ -36,14 +38,18 @@ internal class NettyClientHandler : SimpleChannelInboundHandler<String>() {
      * 发送消息
      */
     fun sendMsg(msg: String) {
-        channelHandlerContext?.channel()?.writeAndFlush(msg)
+        io {
+            channelHandlerContext?.channel()?.writeAndFlush(msg)
+        }
     }
 
     /**
      * 发送字节消息
      */
     fun sendData(data: ByteArray) {
-        channelHandlerContext?.channel()?.writeAndFlush(data)
+        io {
+            channelHandlerContext?.channel()?.writeAndFlush(data)
+        }
     }
 
     /**
@@ -51,7 +57,9 @@ internal class NettyClientHandler : SimpleChannelInboundHandler<String>() {
      */
     override fun channelRead0(ctx: ChannelHandlerContext?, msg: String?) {
         msg?.let {
-            msgCallback(msg)
+            main {
+                msgCallback(msg)
+            }
         }
     }
 }

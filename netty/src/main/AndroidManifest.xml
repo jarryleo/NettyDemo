@@ -1,8 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.leo.netty">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application>
-        <service android:name="cn.leo.netty.PushService"
-            android:process=":nettyClient"/>
+        <service
+            android:name="cn.leo.netty.PushService"
+            android:process=":nettyClient" />
     </application>
 </manifest>

@@ -1,5 +1,7 @@
 package cn.leo.netty
 
+import io.netty.util.internal.logging.InternalLoggerFactory
+import io.netty.util.internal.logging.JdkLoggerFactory
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -8,6 +10,10 @@ import java.util.concurrent.ConcurrentHashMap
  */
 object NettyManager {
     private val clientCache = ConcurrentHashMap<String, NettyTcpClient>()
+
+    init {
+        InternalLoggerFactory.setDefaultFactory(JdkLoggerFactory.INSTANCE)
+    }
 
     /**
      * 获取tcp连接
